@@ -1,4 +1,4 @@
-# devconf-cz-web
+# openhouse-web
 
 ## How to deploy
 
@@ -17,4 +17,3 @@
    ```
    firebase deploy
    ```
-   
