@@ -1,0 +1,30 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "checkAccess": {
+      ".read": "auth != null && root.child('admins').hasChild(auth.uid)",
+      ".write": false
+    },
+    "admins": {
+      ".read": true,
+      ".write": false
+    },
+    "rooms": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+    },
+    "sessions": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+    },
+    "speakers": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+    },
+    "tracks": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+    }
+  }
+}

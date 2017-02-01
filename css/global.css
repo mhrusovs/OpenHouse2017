@@ -1,0 +1,32 @@
+/**********************************************************************************************************************
+ * GLOBAL
+ *********************************************************************************************************************/
+
+body, html {
+    background: #FFFFFF;
+}
+
+.container {
+    width: 95%;
+    max-width: 1600px;
+}
+
+.preloader-wrapper {
+    position: fixed;
+    top: 45%;
+    left: 45%;
+}
+
+
+@media (min-width: 993px) {
+    .preloader-wrapper {
+        left: 47%;
+    }
+}
+
+i.tiny.material-icons {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+

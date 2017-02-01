@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.barrating.min.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/sessions.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link type="text/css" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="css/fontawesome-stars.css">
+    <link type="text/css" rel="stylesheet" href="css/global.css">
+    <link type="text/css" rel="stylesheet" href="css/web.css">
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-hight"/>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+
+    <title>DevConf CZ 2017 - Sessions</title>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+
+    <div align="center">All information about DevConf are available in mobile application for Android devices in <a href="https://play.google.com/store/apps/details?id=cz.devconf2017" target="_blank">Google Play store</a>.</div>
+    <div id="sessions" class="row hide">
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#talks" class="active">Talks</a></li>
+                <li class="tab"><a href="#workshops">Workshops</a></li>
+            </ul>
+        </div>
+        <div id="talks" class="col s12">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab"><a href="#day1-talks" class="active">01/27</a></li>
+                    <li class="tab"><a href="#day2-talks">01/28</a></li>
+                    <li class="tab"><a href="#day3-talks">01/29</a></li>
+                </ul>
+            </div>
+            <div id="day1-talks" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">Filtered by: <span class="filters"></span>
+                </div>
+                <div class="day1-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day1">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="day2-talks" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span>
+                </div>
+                <div class="day2-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day2">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="day3-talks" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span>
+                </div>
+                <div class="day3-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day3">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="workshops" class="col s12">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab"><a href="#day1-workshops" class="active">01/27</a></li>
+                    <li class="tab"><a href="#day2-workshops">01/28</a></li>
+                    <li class="tab"><a href="#day3-workshops">01/29</a></li>
+                </ul>
+            </div>
+            <div id="day1-workshops" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span></div>
+                <div class="day1-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day1">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="day2-workshops" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span></div>
+                <div class="day2-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day2">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div id="day3-workshops" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span></div>
+                <div class="day3-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day3">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="session-detail" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <span class="session-id hide"></span>
+            <h5><span class="session-title"></span><i
+                    class="material-icons session-favorite-icon right hide">favorite_border</i></h5>
+            <div class="session-info">
+                <div>
+                    <i class="tiny material-icons session-speakers-icon">person</i><span
+                        class="session-speakers"></span>
+                </div>
+                <div>
+                    <i class="tiny material-icons session-track-icon">local_offer</i><span class="session-track"></span>
+                    <i class="tiny material-icons session-difficulty-icon">warning</i>
+                    <span class="session-difficulty"></span>
+                </div>
+                <i class="tiny material-icons session-start-icon">event</i><span class="session-start"></span>
+                <i class="tiny material-icons session-room-icon">place</i><span class="session-room"></span>
+                <i class="tiny material-icons session-duration-icon">schedule</i><span class="session-duration"></span>
+
+            </div>
+            <div class="session-description"></div>
+            <fieldset>
+                <legend>Feedback:</legend>
+                <div id="wrapper" style="text-align: center">
+                    <select id="vote-rating" name="rating" autocomplete="off" style="display: inline-block;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class='input-field'>
+                    <label for="vote-comment">Comment:</label>
+                    <textarea id="vote-comment" class='materialize-textarea' rows='10'></textarea>
+                </div>
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <a href="#!" id="vote-send" class="modal-action waves-effect waves-green btn-flat">Send Feedback</a>
+        </div>
+    </div>
+
+    <div id="speaker-detail" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-image" style="max-width: 300px; display: inline-block">
+                    <img class="speaker-image" src="">
+                    <span class="card-title speaker-name"></span>
+                </div>
+                <div class="card-content" style="max-width: 60%; display: inline-block; vertical-align: top;">
+                    <p><i class="material-icons tiny">place</i> <span class="speaker-country"></span></p>
+                    <p><i class="material-icons tiny">business</i> <span class="speaker-organization"></span></p>
+                    <p class="speaker-bio"></p>
+                </div>
+                <div class="card-action">
+                    <span class="speaker-twitter"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <div id="signin" class="modal">
+        <div class="modal-content">
+            <h4>Sign In</h4>
+            <p>To use this feature you need to be logged in your Google account.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">No way</a>
+            <a href="#!" id="google-sign-in" class="modal-action waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

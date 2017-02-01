@@ -1,0 +1,296 @@
+/**********************************************************************************************************************
+ * SESSIONS
+ *********************************************************************************************************************/
+
+/** SESSIONS -> TABLE ************************************************************************************************/
+
+.tabs .indicator {
+    background-color: #000000;
+}
+
+table {
+    table-layout: fixed;
+}
+
+th {
+    text-align: center;
+}
+
+table.responsive-table td.session-time {
+    text-align: center;
+}
+
+table.responsive-table td {
+    font-size: 12px;
+    height: 51px;
+}
+
+@media (min-width: 993px) {
+    table.responsive-table td {
+        height: 174px;
+    }
+}
+
+/* SESSIONS -> FILTER ************************************************************************************************/
+
+.filter-wrapper {
+    padding: 10px 1px 1px 1px;
+}
+
+.dropdown-wrapper {
+    /* Size and position */
+    position: relative; /* Enable absolute positionning for children and pseudo elements */
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px 15px;
+
+    /* Styles */
+    background: #fff;
+    border-left: 5px solid grey;
+    cursor: pointer;
+    outline: none;
+}
+
+.dropdown-wrapper:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: grey transparent;
+}
+
+.dropdown-wrapper .dropdown {
+    /* Size & position */
+    position: absolute;
+    top: 67%;
+    left: -5px;
+    right: 0px;
+
+    /* Styles */
+    background: white;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown-wrapper .dropdown li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    border-left: 5px solid;
+    padding: 5px 10px 5px 10px;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.dropdown-wrapper .dropdown li i {
+    margin-right: 5px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+/* Hover state */
+
+.dropdown-wrapper .dropdown li:hover a {
+    color: grey;
+}
+
+/* Active state */
+
+.dropdown-wrapper.active:after {
+    border-width: 0 6px 6px 6px;
+}
+
+.dropdown-wrapper.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* No CSS3 support */
+
+.no-opacity .dropdown-wrapper .dropdown,
+.no-pointerevents .dropdown-wrapper .dropdown {
+    display: none;
+    opacity: 1; /* If opacity support but no pointer-events support */
+    pointer-events: auto; /* If pointer-events support but no pointer-events support */
+}
+
+.no-opacity .dropdown-wrapper.active .dropdown,
+.no-pointerevents .dropdown-wrapper.active .dropdown {
+    display: block;
+}
+
+/* SESSIONS -> SESSION */
+
+.session {
+    padding: 1px 5px 1px 5px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+@media (min-width: 993px) {
+    .session {
+        padding: 10px;
+    }
+}
+
+.session-time {
+    color: #727272;
+}
+
+.session-hour, .session-minute {
+    font-size: 18px;
+    margin-left: 3px;
+}
+
+@media (min-width: 993px) {
+    .session .session-title {
+        min-height: 100px;
+    }
+
+    .session-time {
+        color: #727272;
+        min-width: 110px;
+        padding: 24px;
+    }
+
+    .session-hour {
+        font-size: 56px;
+        font-weight: 300;
+        letter-spacing: -0.04em;
+    }
+
+    .session-minute {
+        font-size: 16px;
+        margin-left: 3px;
+    }
+}
+
+#session-detail, .session-speakers a {
+    color: #ffffff;
+}
+
+.session-description {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.session-info i {
+    margin-right: 2px;
+}
+
+.session-speakers, .session-track, .session-room, .session-start, .session-duration, .session-difficulty {
+    margin-bottom: 5px;
+    margin-right: 3px;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.session-favorite-icon {
+    cursor: pointer;
+}
+
+.input-field, .input-field label, legend {
+    color: #fff;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #fff;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #fff;
+    box-shadow: 0 1px 0 0 #fff;
+}
+
+.br-wrapper {
+    margin-top: 10px;
+}
+
+.input-field {
+    margin-top: 30px;
+}
+
+/**********************************************************************************************************************
+ * SPEAKERS
+ *********************************************************************************************************************/
+
+.speakers-container {
+    display: inline-block;
+}
+
+.card.speaker {
+    margin: 8px;
+    vertical-align: top;
+    width: 95%;
+    min-width: 300px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+@media (min-width: 718px) {
+    .card.speaker {
+        margin: 8px;
+        width: calc(100% / 2 - 2 * 8px);
+    }
+}
+
+@media (min-width: 1069px) {
+    .card.speaker {
+        width: calc(100% / 3 - 2 * 8px);
+    }
+}
+
+.card-image.speaker-image {
+    color: #fff;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.card-title.speaker-name {
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+    padding: 5px;
+    margin-left: 10px;
+    line-height: 1.2;
+}
+
+.speaker-country, .speaker-organization, .speaker-bio {
+    color: #212121;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.speaker-bio {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: justify;
+    font-size: 16px;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    color: #039be5;
+    text-transform: none;
+}
+
