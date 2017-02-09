@@ -9,6 +9,7 @@ $(function () {
             new FieldOption(FieldType.HEX, "color")
         ],
         data: {},
+	load: [],
         databaseRef: firebase.database().ref().child("tracks"),
         databaseOrder: "name"
     });
@@ -21,6 +22,7 @@ $(function () {
             new FieldOption(FieldType.TEXT, "type")
         ],
         data: {},
+	load: [],
         databaseRef: firebase.database().ref().child("rooms"),
         databaseOrder: "name"
     });
@@ -38,6 +40,7 @@ $(function () {
             new FieldOption(FieldType.TEXTAREA, "bio", {rows: 10, truncate: 70})
         ],
         data: {},
+	load: [],
         databaseRef: firebase.database().ref().child("speakers"),
         databaseOrder: "name",
         storageRef: firebase.storage().ref("speakers")
@@ -48,16 +51,20 @@ $(function () {
         fieldId: "key",
         fields: [
             new FieldOption(FieldType.TEXT, "title"),
-            new FieldOption(FieldType.TEXT, "type"),
-            new FieldOption(FieldType.TEXT, "track"),
+            new FieldOption(FieldType.RADIO, "type", {values: [{value: "talk", description: "Talk"}, {value: "contest", description: "Contest"},{value: "team", description: "Team presentation"}]}),
+            new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: ""}),
             new FieldOption(FieldType.TEXT, "difficulty"),
-            new FieldOption(FieldType.TEXT, "room"),
+            new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: ""}),
             new FieldOption(FieldType.TEXT, "day"),
-            new FieldOption(FieldType.TEXT, "start"),
+            new FieldOption(FieldType.TEXT, "start"), 
             new FieldOption(FieldType.TEXT, "duration"),
             new FieldOption(FieldType.TEXTAREA, "description", {rows: 10, truncate: 40})
         ],
         data: {},
+	load: [
+		{ref: firebase.database().ref().child("tracks"), order: "name", store: "track", what: "name"},
+		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: "name"}
+	],
         databaseRef: firebase.database().ref().child("sessions"),
         databaseOrder: "day",
         storageRef: firebase.storage().ref("sessions")
@@ -78,6 +85,8 @@ Object.defineProperty(FieldType, 'IMAGE_URL', {value: "image_url"});
 Object.defineProperty(FieldType, 'TEXT', {value: "text"});
 Object.defineProperty(FieldType, 'TEXTAREA', {value: "textarea"});
 Object.defineProperty(FieldType, 'HEX', {value: "hex"});
+Object.defineProperty(FieldType, 'RADIO', {value: "radio"});
+Object.defineProperty(FieldType, 'SELECT', {value: "select"});
 
 var FieldOption = function (type, name, options) {
     this.type = type;
@@ -157,12 +166,37 @@ function login() {
 
 function configure(config) {
 
+    config.load.forEach( function (toLoad){
+	toLoad.ref.orderByChild(toLoad.order).on("value", function (snapshot) {
+                var shot = snapshot.val();
+		var vals = {};
+                $.each(shot, function (index, snap){
+                        // Add new data to select menu
+                        vals[index] = snap[toLoad.what];
+                });
+               console.log(vals); 
+		config.fields.forEach( function (element) {
+			if(element.name == toLoad.store){
+				element.options.values = vals;
+				console.log(element.options);
+				var code = createSelectOption(element.options.values);
+				$("#" + createIdName(element.name)).html(code);
+				$('select').material_select();
+			}
+		});
+		
+		
+        });
+
+    });
+
     // Add a new tab bar and a table to display data model list
     $("ul.tabs").append(createTab());
     $("#container").append(createDataModelTable());
 
     // Create a modal and a form to create/update a data model
     $("#container").append(createModalForm());
+    $('select').material_select();
 
     // -- Buttons trigger ----------------------------------------------------------------------------------------
 
@@ -453,6 +487,27 @@ function configure(config) {
                         "class='materialize-textarea' rows='" + field.options.rows + "'></textarea>" +
                         "</div>";
                     break;
+		case FieldType.SELECT:
+		    html += "<div class='input-field'>" + 
+			    "<select id='" + createIdName(field.name) + "' " + field.options.multiple + ">" + 
+			    createSelectOption(field.options.values) + 
+			    "</select>" +
+			    "<label>" + field.name + ":</label>" +
+			    "</div>";
+
+		    break;
+		case FieldType.RADIO:
+		    html += "<div class='input-field' style='margin-bottom: 25px'>" +
+                        "<label>" + field.name + ":</label>";
+		
+		    field.options.values.forEach( function(option) {
+			html += "<p style='margin-left: 3em;'><input type='radio' class='with-gap' name='group' id='radio-" + option.value + "'>" + 
+			 	"<label for='radio-" + option.value + "'>" + option.description + "</label></p>";
+		    });
+		    
+		    html += "</div>";
+		    break;
+
                 default:
                     html += "<div class='input-field'>" +
                         "<label for='" + createIdName(field.name) + "'>" + field.name + ":</label>" +
@@ -461,6 +516,7 @@ function configure(config) {
                     break;
             }
         });
+
         html += "</fieldset>" +
             "</form>" +
             "</div>" +
@@ -474,6 +530,16 @@ function configure(config) {
     }
 
 
+    function createSelectOption(values){
+	var options = "<option value='0' disabled selected>Choose your option</option>";
+	
+	$.each(values, function (index, val){
+		// Add new data to select menu
+	        options += "<option value='" + val + "'>" + val + "</option>";
+	});
+
+	return options;		
+    }
     /**
      * Open a model window with the dinamic form created with createFormHtml
      *
@@ -490,6 +556,9 @@ function configure(config) {
             if (field.type == FieldType.TEXTAREA) {
                 formField.trigger('autoresize');
             }
+	    if (field.type == FieldType.SELECT){
+		$('select').material_select();
+	    }
         });
 
         Materialize.updateTextFields();
@@ -534,6 +603,23 @@ function configure(config) {
                     data[field.name] = (config.data[key]) ? config.data[key][field.name] : "";
                 }
             }
+	    if (field.type == FieldType.RADIO) {
+		field.options.values.forEach( function(option) {
+                        var radio = $(form).find("#radio-" + option.value);
+			if(radio.prop("checked") == true){
+				data[field.name] = option.value;
+			}
+                    });
+	    }
+
+	    if (field.type == FieldType.SELECT){
+		var select = $(form).find("#" + createIdName(field.name));
+		if(select.val() == null){
+			data[field.name] = "";
+		} else {
+			data[field.name] = select.val();
+		}
+	    }
         });
 
         config.databaseRef.child(key).update(data, function (error) {

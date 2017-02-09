@@ -242,14 +242,18 @@ function sessions() {
         var talks = sessionsTabs.find("li.tab:first a").attr('href').substring(1);
         sessionsTabs.tabs('select_tab', talks);
 
-        var talksTabs = $("#talks").find("ul.tabs");
-        var day1Talks = talksTabs.find("li.tab:first a").attr('href').substring(1);
-        talksTabs.tabs('select_tab', day1Talks);
+       // var talksTabs = $("#talks").find("ul.tabs");
+       // var day1Talks = talksTabs.find("li.tab:first a").attr('href').substring(1);
+       // talksTabs.tabs('select_tab', day1Talks);
 
-        // var workshopsTabs = $("#workshops").find("ul.tabs");
-        // var day1Workshops = workshopsTabs.find("li.tab:first a").attr('href').substring(1);
-        // workshopsTabs.tabs('select_tab', day1Workshops);
+        // var contestsTabs = $("#contests").find("ul.tabs");
+        // var day1Contests = contestsTabs.find("li.tab:first a").attr('href').substring(1);
+        // contestsTabs.tabs('select_tab', day1Contests);
 
+	// var teamsTabs = $("#teams").find("ul.tabs");
+	// var day1Workshops = teamsTabs.find("li.tab:first a").attr('href').substring(1);
+	// teamsTabs.tabs('select_tab', day1Workshops);
+	
         $(".preloader-wrapper").addClass("hide");
     }
 
@@ -291,23 +295,27 @@ function sessions() {
      */
     function createTableHeader() {
         var talks = "<tr><th></th>";
-        var workshops = "<tr><th></th>";
+        var contests = "<tr><th></th>";
+	var teams = "<tr><th></th>";
 
         for (var key in rooms) {
-            if (roomType(rooms[key]) == "workshops") {
-                workshops += "<th>" + rooms[key].name + "</th>";
+            if (roomType(rooms[key]) == "contests") {
+                contests += "<th>" + rooms[key].name + "</th>";
             } else {
-                talks += "<th>" + rooms[key].name + "</th>";
+		if(roomType(rooms[key]) == "teams"){
+               		teams += "<th>" + rooms[key].name + "</th>";
+		} else {
+		   talks += "<th>" + rooms[key].name + "</th>";
+		}
             }
         }
 
         $("#talks").find("table.day1 > thead").append(talks);
-        $("#talks").find("table.day2 > thead").append(talks);
-        $("#talks").find("table.day3 > thead").append(talks);
 
-        $("#workshops").find("table.day1 > thead").append(workshops);
-        $("#workshops").find("table.day2 > thead").append(workshops);
-        $("#workshops").find("table.day3 > thead").append(workshops);
+        $("#contests").find("table.day1 > thead").append(contests);
+
+	$("#teams").find("table.day1 > thead").append(teams);
+
     }
 
     /**
@@ -395,10 +403,19 @@ function sessions() {
      * @returns {string} The type of the session "workshops" or "talks"
      */
     function roomType(room) {
-        return (room.type.toLowerCase() == "keynote"
-        || room.type.toLowerCase() == "talk"
-        || room.type.toLowerCase() == "meetup")
-            ? "talks" : "workshops";
+        if (room.type.toLowerCase() == "talk"){
+            return "talks";
+	}
+
+	if (room.type.toLowerCase() == "contest"){
+            return "contests"; 
+        }
+
+	if (room.type.toLowerCase() == "team presentation"){
+            return "teams"; 
+        }
+
+	return "talks";
     }
 
     /**
@@ -408,11 +425,19 @@ function sessions() {
      * @returns {string} The type of the session "workshops" or "talks"
      */
     function sessionType(session) {
-        return (session.type.toLowerCase() == "keynote"
-            || session.type.toLowerCase() == "talk"
-            || session.type.toLowerCase() == "meetup"
-        )
-            ? "talks" : "workshops";
+	if (session.type.toLowerCase() == "talk"){
+            return "talks"; 
+        }
+
+        if (session.type.toLowerCase() == "contest"){
+            return "contests";
+        }
+
+        if (session.type.toLowerCase() == "team presentation"){
+            return "teams";
+        }
+
+        return "talks";
     }
 
     function findTd(session) {
