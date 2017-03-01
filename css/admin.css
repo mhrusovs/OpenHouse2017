@@ -43,10 +43,6 @@ img.form-image {
     margin-bottom: 10px;
 }
 
-.model-table {
-    margin-top: 50px;
-}
-
 th.controls {
     width: 100px;
 }
@@ -74,3 +70,9 @@ td.edit {
     right: 24px;
     z-index: 999;
 }
+
+.tabs {
+    position: absolute;
+    top: 20px;
+}
+

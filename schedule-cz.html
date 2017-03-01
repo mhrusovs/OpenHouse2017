@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta property="og:title" content="Open House 2017">
+    <meta property="og:site_name" content="openhouse.redhat.com">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://openhouse.redhat.com">
+    <meta property="og:image" content="https://openhouse.redhat.com/imgs/openhouse_logo.png">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="imgs/favicon.png" type="image/png">
+
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/jquery.barrating.min.js"></script>
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/sessions.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link type="text/css" rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link type="text/css" rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="css/fontawesome-stars.css">
+    <link type="text/css" rel="stylesheet" href="css/global.css">
+
+    <!-- Overpass font -->
+    <link href="http://overpass-30e2.kxcdn.com/overpass.css" rel="stylesheet">
+    <link href="http://overpass-30e2.kxcdn.com/overpass-mono.css" rel="stylesheet">
+
+    <!-- Font Awesome 4.6.3 -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- FamFamFam flag icons -->
+    <link rel="stylesheet" href="css/famfamfam-flags.css">
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+
+    <!-- OpenHouse style -->
+    <link href="css/openhouse.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/web.css">
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-hight"/>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+
+    <title>Open House 2017 - Program</title>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-top" data-offset="250">
+<!-- Navigation -->
+    <nav class="navbar navbar-default navbar-top" style="display: table">
+      <div class="main-banner"><div class="banner-image"></div></div>
+      <div class="container">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="hidden-lg"><a href="index-cz.html#page-top">Domů</a></li>
+            <li><a href="schedule-cz.html">Program</a></li>
+            <li><a href="speakers-cz.html">Řečníci</a></li>
+            <li><a href="index-cz.html#venue">Místo konání</a></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right social">
+            <li><a href="https://www.facebook.com/" class="fa fa-facebook-official" title="Facebook">
+                <span class="hide">Facebook</span>
+            </a></li>
+
+            <li><a href="https://plus.google.com/" class="fa fa-google-plus" title="Google+">
+                <span class="hide">Google+</span>
+            </a></li>
+
+           <li><a href="schedule.html" title="English version">
+                <i class="famfamfam-flag-us"></i>
+            </a></li>
+          </ul>
+        </div>
+
+        <!-- /.navbar-collapse -->
+      </div>
+
+      <!-- /.container -->
+    </nav>
+<section id="schedule" class="schedule-section">
+<div class="loading-container">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sessions" class="row hide">
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab"><a href="#talks" class="active">Talks</a></li>
+                <li class="tab"><a href="#contests">Contests</a></li>
+		<li class="tab"><a href="#teams">Team presentations</a></li>
+            </ul>
+        </div>
+        <div id="talks" class="col s12">
+            <div id="day-talks" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">Filtered by: <span class="filters"></span>
+                </div>
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="contests" class="col s12">
+            <div id="day-contests" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span></div>
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+    <div id="teams" class="col s12">
+            <div id="day-teams" class="col s12">
+                <div class="filter-wrapper left hide hide-on-med-and-down">
+                    Filtered by: <span class="filters"></span></div>
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                    <ul class="dropdown">
+                    </ul>
+                </div>
+                <table class="responsive-table bordered striped day">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+    <div id="session-detail" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <span class="session-id hide"></span>
+            <h5><span class="session-title"></span><i
+                    class="material-icons session-favorite-icon right hide">favorite_border</i></h5>
+            <div class="session-info">
+                <div>
+                    <i class="tiny material-icons session-speakers-icon">person</i><span
+                        class="session-speakers"></span>
+                </div>
+                <div>
+                    <i class="tiny material-icons session-track-icon">local_offer</i><span class="session-track"></span>
+                    <i class="tiny material-icons session-difficulty-icon">warning</i>
+                    <span class="session-difficulty"></span>
+                </div>
+                <i class="tiny material-icons session-start-icon">notifications</i><span class="session-start"></span>
+                <i class="tiny material-icons session-room-icon">place</i><span class="session-room"></span>
+                <i class="tiny material-icons session-duration-icon">schedule</i><span class="session-duration"></span>
+
+            </div>
+            <div class="session-description"></div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <div id="speaker-detail" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-image" style="max-width: 300px; display: inline-block">
+                    <img class="speaker-image" src="">
+                    <span class="card-title speaker-name"></span>
+                </div>
+                <div class="card-content" style="max-width: 60%; display: inline-block; vertical-align: top;">
+                    <p><i class="material-icons tiny">place</i> <span class="speaker-country"></span></p>
+                    <p><i class="material-icons tiny">business</i> <span class="speaker-organization"></span></p>
+                    <p class="speaker-bio"></p>
+                </div>
+                <div class="card-action">
+                    <span class="speaker-twitter"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <div id="signin" class="modal">
+        <div class="modal-content">
+            <h4>Sign In</h4>
+            <p>To use this feature you need to be logged in your Google account.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action waves-effect waves-green btn-flat modal-close">No way</a>
+            <a href="#!" id="google-sign-in" class="modal-action waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+</div>
+</section>
+    <footer id="footer" class="footer-section">
+      <div class="container">
+          <!-- Participation Agreements Section -->
+          <div class="col-xs-12 text-center" style="color: white">
+          Máte nějaké další dotazy? Kontaktujte přímo <a href="mailto:mhrusovs@redhat.com">Mateje Hrušovského</a>.
+
+          </div>
+          <!-- END Participation Agreements Section -->
+      </div>
+    </footer>
+
+</body>
+</html>

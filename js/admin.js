@@ -6,7 +6,7 @@ $(function () {
         fieldId: "key",
         fields: [
             new FieldOption(FieldType.TEXT, "name"),
-            new FieldOption(FieldType.HEX, "color")
+            new FieldOption(FieldType.COLOR, "color")
         ],
         data: {},
 	load: [],
@@ -19,7 +19,7 @@ $(function () {
         fieldId: "key",
         fields: [
             new FieldOption(FieldType.TEXT, "name"),
-            new FieldOption(FieldType.TEXT, "type")
+            new FieldOption(FieldType.RADIO, "type", {values: [{value: "talk", description: "Talk"}, {value: "contest", description: "Contest"},{value: "team", description: "Team presentation"}]})
         ],
         data: {},
 	load: [],
@@ -31,7 +31,7 @@ $(function () {
         model: "speaker",
         fieldId: "key",
         fields: [
-            new FieldOption(FieldType.IMAGE_URL, "avatar", {size: 50}),
+            new FieldOption(FieldType.IMAGE, "avatar", {size: 50}),
             new FieldOption(FieldType.TEXT, "name"),
             new FieldOption(FieldType.TEXT, "email"),
             new FieldOption(FieldType.TEXT, "country"),
@@ -55,18 +55,19 @@ $(function () {
             new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: ""}),
             new FieldOption(FieldType.TEXT, "difficulty"),
             new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: ""}),
-            new FieldOption(FieldType.TEXT, "day"),
+            new FieldOption(FieldType.SELECT, "speakers", {values: {}, multiple: "multiple"}),
             new FieldOption(FieldType.TEXT, "start"), 
             new FieldOption(FieldType.TEXT, "duration"),
             new FieldOption(FieldType.TEXTAREA, "description", {rows: 10, truncate: 40})
         ],
         data: {},
 	load: [
-		{ref: firebase.database().ref().child("tracks"), order: "name", store: "track", what: "name"},
-		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: "name"}
+		{ref: firebase.database().ref().child("tracks"), order: "name", store: "track", what: {value: "name", description: ["name"]}},
+		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: {value: "name", description: ["name", "type"]}},
+		{ref: firebase.database().ref().child("speakers"), order: "name", store: "speakers", what: {value: "id", description: ["name"]}}
 	],
         databaseRef: firebase.database().ref().child("sessions"),
-        databaseOrder: "day",
+        databaseOrder: "start",
         storageRef: firebase.storage().ref("sessions")
     });
 
@@ -84,7 +85,7 @@ Object.defineProperty(FieldType, 'IMAGE', {value: "image"});
 Object.defineProperty(FieldType, 'IMAGE_URL', {value: "image_url"});
 Object.defineProperty(FieldType, 'TEXT', {value: "text"});
 Object.defineProperty(FieldType, 'TEXTAREA', {value: "textarea"});
-Object.defineProperty(FieldType, 'HEX', {value: "hex"});
+Object.defineProperty(FieldType, 'COLOR', {value: "hex"});
 Object.defineProperty(FieldType, 'RADIO', {value: "radio"});
 Object.defineProperty(FieldType, 'SELECT', {value: "select"});
 
@@ -172,13 +173,24 @@ function configure(config) {
 		var vals = {};
                 $.each(shot, function (index, snap){
                         // Add new data to select menu
-                        vals[index] = snap[toLoad.what];
+                        vals[index] = {};
+                        $.each(toLoad.what, function (id, what){
+			    if(id == 'value'){
+		                vals[index]['value'] = snap[what];
+			    }else{
+				$.each(what, function(i, des){
+				    if(vals[index]['description']){
+					vals[index]['description'] += " - " + snap[des];
+				    }else{ 	
+					vals[index]['description'] = snap[des];
+				    }
+				});
+			    }
+			});
                 });
-               console.log(vals); 
 		config.fields.forEach( function (element) {
 			if(element.name == toLoad.store){
 				element.options.values = vals;
-				console.log(element.options);
 				var code = createSelectOption(element.options.values);
 				$("#" + createIdName(element.name)).html(code);
 				$('select').material_select();
@@ -227,7 +239,26 @@ function configure(config) {
             event.preventDefault();
             saveData($("#" + createIdName("form")));
             $("#" + createIdName("modal-form")).modal('close');
+        })
+	.on("click", ".modal-close", function (event) {
+	    event.preventDefault();
+	    console.log("modal close clicked");
+	    $.each(config.fields, function (index, field) {
+            switch (field.type) {
+                case FieldType.RADIO:
+		    field.options.values.forEach( function(option) {
+                        $("#radio-" + option.value + "-" + config.model).attr('checked',false);
+			$("#radio-" + option.value + "-" + config.model).prop("checked",false);
+                    }); 
+                    break;
+                default:
+                    break;
+            }
+
         });
+
+            $("#" + createIdName("modal-form")).modal('close');
+	});
 
     // -- Firebase Database Triggers ----------------------------------------------------------------------------------
 
@@ -308,7 +339,7 @@ function configure(config) {
 
         $.each(config.fields, function (index, field) {
             if (field.type != FieldType.IMAGE) {
-                data[field.name] = $(form).find("#" + createIdName(field.name)).val();
+	        data[field.name] = $(form).find("#" + createIdName(field.name)).val();
             }
         });
 
@@ -373,6 +404,13 @@ function configure(config) {
                         "<img src='" + imageSrc + "' class='circle' width='" + field.options.size + "px' height='" + field.options.size + "px' />" +
                         "</td>";
                     break;
+		case FieldType.COLOR:
+		    var val = "#000000";
+		    if (data[field.name]) {
+			val = data[field.name];
+		    }
+                    html += "<td class='" + field.name + " mdl-data-table__cell--non-numeric' style='color: white; background-color: " + val + "'>" + val + "</td>";
+                    break;
                 default:
                     var value = "";
                     if (data[field.name]) {
@@ -425,6 +463,10 @@ function configure(config) {
                         tableRow.find('td.' + field.name + " img").attr("src", imageSrc);
                     }
                     break;
+		case FieldType.COLOR:
+			tableRow.find('td.' + field.name).css({"background": data[field.name], "color": "white"});
+			tableRow.find('td.' + field.name).text(value);
+		    break;
                 default:
                     var value = (field.options && field.options.truncate) ?
                     data[field.name].substring(0, field.options.truncate) + "..." : data[field.name];
@@ -501,13 +543,18 @@ function configure(config) {
                         "<label>" + field.name + ":</label>";
 		
 		    field.options.values.forEach( function(option) {
-			html += "<p style='margin-left: 3em;'><input type='radio' class='with-gap' name='group' id='radio-" + option.value + "'>" + 
-			 	"<label for='radio-" + option.value + "'>" + option.description + "</label></p>";
+			html += "<p style='margin-left: 3em;'><input type='radio' class='with-gap' name='group-" + field.name + "-" + config.model + "' id='radio-" + option.value + "-" + config.model + "'>" + 
+			 	"<label for='radio-" + option.value + "-" + config.model + "'>" + option.description + "</label></p>";
 		    });
 		    
 		    html += "</div>";
 		    break;
-
+		case FieldType.COLOR:
+		    html += "<div class='input-field'>" +
+                        "<label for='" + createIdName(field.name) + "' style='top: -1.5rem'>" + field.name + ":</label>" +
+                        "<input type='color' id='" + createIdName(field.name) + "' />" +
+                        "</div>";
+                    break;
                 default:
                     html += "<div class='input-field'>" +
                         "<label for='" + createIdName(field.name) + "'>" + field.name + ":</label>" +
@@ -535,7 +582,7 @@ function configure(config) {
 	
 	$.each(values, function (index, val){
 		// Add new data to select menu
-	        options += "<option value='" + val + "'>" + val + "</option>";
+	        options += "<option value='" + val.value + "'>" + val.description + "</option>";
 	});
 
 	return options;		
@@ -550,14 +597,23 @@ function configure(config) {
         $("#" + createIdName("form")).find("#" + createIdName(config.fieldId)).val(key);
 
         config.fields.forEach(function (field) {
-            var formField = $("#" + createIdName("form")).find("#" + createIdName(field.name));
-            var value = (data && data[field.name]) ? data[field.name] : "";
-            formField.val(value);
-            if (field.type == FieldType.TEXTAREA) {
-                formField.trigger('autoresize');
-            }
-	    if (field.type == FieldType.SELECT){
-		$('select').material_select();
+	    if(field.type != FieldType.IMAGE){
+
+                var formField = $("#" + createIdName("form")).find("#" + createIdName(field.name));
+                var value = (data && data[field.name]) ? data[field.name] : "";
+                formField.val(value);
+                if (field.type == FieldType.TEXTAREA) {
+                    formField.trigger('autoresize');
+                }
+		if (field.type == FieldType.RADIO) {
+		    if(data && data[field.name]) {
+ 		        $("#radio-" + data[field.name] + "-" + config.model).attr('checked', true);
+			$("#radio-" + data[field.name] + "-" + config.model).prop("checked", true);
+		    }
+		}
+    	        if (field.type == FieldType.SELECT){
+		    $('select').material_select();
+	        }
 	    }
         });
 
@@ -580,6 +636,7 @@ function configure(config) {
         var data = parseDataModelFromForm(form);
 
         var key = (!data[config.fieldId]) ? config.databaseRef.push().key : data[config.fieldId];
+        data["id"] = key;	
 
         // Remove key to not be saved with model data
         delete data[config.fieldId];
@@ -592,7 +649,7 @@ function configure(config) {
                 if (fileButton.val() != "") {
                     var file = fileButton[0].files[0];
                     // key/model-fieldname.file_exetension
-                    var absolutePath = key + "/" + createIdName(field.name) + "." + file.name.split('.').pop();
+                    var absolutePath = "/" + createImageName(data) + "." + file.name.split('.').pop();
 
                     uploadImage(file, absolutePath, function (fileUrl) {
                         data[field.name] = fileUrl;
@@ -605,7 +662,7 @@ function configure(config) {
             }
 	    if (field.type == FieldType.RADIO) {
 		field.options.values.forEach( function(option) {
-                        var radio = $(form).find("#radio-" + option.value);
+                        var radio = $(form).find("#radio-" + option.value + "-" + config.model);
 			if(radio.prop("checked") == true){
 				data[field.name] = option.value;
 			}
@@ -615,7 +672,7 @@ function configure(config) {
 	    if (field.type == FieldType.SELECT){
 		var select = $(form).find("#" + createIdName(field.name));
 		if(select.val() == null){
-			data[field.name] = "";
+			data[field.name] = [];
 		} else {
 			data[field.name] = select.val();
 		}
@@ -628,6 +685,10 @@ function configure(config) {
             }
         });
 
+    }
+
+    function createImageName(data) {
+    	return data['email'];
     }
 
     /**

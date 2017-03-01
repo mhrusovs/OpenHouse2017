@@ -242,18 +242,6 @@ function sessions() {
         var talks = sessionsTabs.find("li.tab:first a").attr('href').substring(1);
         sessionsTabs.tabs('select_tab', talks);
 
-       // var talksTabs = $("#talks").find("ul.tabs");
-       // var day1Talks = talksTabs.find("li.tab:first a").attr('href').substring(1);
-       // talksTabs.tabs('select_tab', day1Talks);
-
-        // var contestsTabs = $("#contests").find("ul.tabs");
-        // var day1Contests = contestsTabs.find("li.tab:first a").attr('href').substring(1);
-        // contestsTabs.tabs('select_tab', day1Contests);
-
-	// var teamsTabs = $("#teams").find("ul.tabs");
-	// var day1Workshops = teamsTabs.find("li.tab:first a").attr('href').substring(1);
-	// teamsTabs.tabs('select_tab', day1Workshops);
-	
         $(".preloader-wrapper").addClass("hide");
     }
 
@@ -290,6 +278,10 @@ function sessions() {
         return session.start.replace(/:/g, '_');
     }
 
+    function formatGivenTime(time){
+	return time.replace(/:/g, '_');
+    }
+
     /**
      * Create table header based in available rooms
      */
@@ -310,11 +302,11 @@ function sessions() {
             }
         }
 
-        $("#talks").find("table.day1 > thead").append(talks);
+        $("#talks").find("table.day > thead").append(talks);
 
-        $("#contests").find("table.day1 > thead").append(contests);
+        $("#contests").find("table.day > thead").append(contests);
 
-	$("#teams").find("table.day1 > thead").append(teams);
+	$("#teams").find("table.day > thead").append(teams);
 
     }
 
@@ -332,10 +324,10 @@ function sessions() {
         // New td content
         var html = "<div id='" + session.id + "' class='session hoverable'>" +
             "<div class='session-title'>" + session.title + "</div>" +
-            "<div class='hide-on-med-and-down session-track'>" +
-	    "<div><i class='tiny material-icons'>person</i>" + getSpeakers(session.speakers,false) + "</div>" +
-            "<div><i class='tiny material-icons'>local_offer</i>" + session.track + "</div>" +
-            "<div><i class='tiny material-icons'>schedule</i>" + session.duration + "</div>" +
+            "<div class='hide-on-med-and-down session-detail-bottom'>" +
+	    "<div><i class='tiny material-icons table-icon'>person</i>" + getSpeakers(session.speakers,false) + "</div>" +
+            "<div><i class='tiny material-icons table-icon'>local_offer</i>" + session.track + "</div>" +
+            "<div><i class='tiny material-icons table-icon'>schedule</i>" + session.duration + "</div>" +
             "</div>" +
             "</div>";
 
@@ -345,6 +337,7 @@ function sessions() {
             log(session);
         } else {
             td.html(html);
+	    td.attr("rowspan", getNoHalfHours(session));
 
             if (session.track) {
 
@@ -364,6 +357,57 @@ function sessions() {
     }
 
     /**
+     * 
+     * Return count of 30 minutes blocks, which fits to given duration
+     *
+     * @param session
+     * @returns integer
+     */
+    function getNoHalfHours(session) {
+	var duration = session.duration;
+	var result = parseInt(duration.split(":")[0]) * 2;
+	if(parseInt(duration.split(":")[1]) > 0){
+		result += 1;
+	}
+
+	checkTimeSlots(session, result);	
+	return result;
+    }
+
+    function checkTimeSlots(session, result){
+	var time = session.start;
+	
+	for(i = 0; i < result; i++){
+	    if (!existsTimeSlot(session)) {
+	        if(i > 0){
+			createTR(session,true);
+		}else{
+			createTR(session);
+		}
+	    }
+	    session.start = addHalfHour(session.start);
+        }
+
+	session.start = time;
+    }
+
+    function addHalfHour(time) {
+	var hour = parseInt(time.split(":")[0]),
+	    minutes = parseInt(time.split(":")[1]);
+
+        if(minutes > 0){
+		hour += 1;
+		if(hour < 10){
+			return "0" + hour + ":00";
+		} else {
+			return hour + ":00";
+		}
+	}else{
+		return time.split(":")[0] + ":30";
+	}
+    }
+
+    /**
      *
      * Check if already have a tr to the corresponding day/hour
      *
@@ -371,7 +415,7 @@ function sessions() {
      * @returns {jQuery}
      */
     function existsTimeSlot(session) {
-        return $("#" + sessionType(session)).find("table.day" + session.day + " tr." + formatTimeSlot(session)).length;
+        return $("#" + sessionType(session)).find("table.day tr." + formatTimeSlot(session)).length;
     }
 
     /**
@@ -379,7 +423,7 @@ function sessions() {
      *
      * @param session
      */
-    function createTR(session) {
+    function createTR(session, ignoreThisRoom) {
         var html = "<tr class='timeslot " + formatTimeSlot(session) + "'>" +
             "<td class='session-time'>" +
             "<span class='session-hour'>" + session.start.split(":")[0] + "</span>" +
@@ -389,11 +433,13 @@ function sessions() {
         // Create a TD per room
         for (key in rooms) {
             if (roomType(rooms[key]) == sessionType(session)) {
-                html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
+		if(!ignoreThisRoom){
+	                html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
+		}
             }
         }
         html += "</tr>";
-        $("#" + sessionType(session)).find("table.day" + session.day + " > tbody:last-child").append(html);
+        $("#" + sessionType(session)).find("table.day > tbody:last-child").append(html);
     }
 
     /**
@@ -444,7 +490,7 @@ function sessions() {
         var type = sessionType(session);
         return $("#" + type)
             .find(
-                "table.day" + session.day +
+                "table.day" +
                 " tr." + formatTimeSlot(session) +
                 " td." + formatRoom(session.room)
             );
@@ -457,15 +503,15 @@ function sessions() {
      */
     function addTrackToFilterList(session) {
         var type = sessionType(session);
-        var trackList = $("#" + type).find(".day" + session.day + "-track-filter ul");
+        var trackList = $("#" + type).find(".day-track-filter ul");
         var trackId = formatTrack(session.track);
         if (!(trackList.find("li." + trackId).length)) {
             var trackColor = (tracks[formatTrack(session.track)]) ? tracks[formatTrack(session.track)].color : "#FFFFFF";
-            var html = "<li class='day" + session.day + " " + trackId + "'>" +
+            var html = "<li class='day " + trackId + "'>" +
                 "<a href='#' style='border-left-color: " + trackColor + "'>" +
-                "<input type='checkbox' id='day" + session.day + "-" + trackId + "' name='" + trackId + "' " +
+                "<input type='checkbox' id='day-" + trackId + "' name='" + trackId + "' " +
                 "class='track-filter' value='" + session.track + "'>" +
-                "<label for='day" + session.day + "-" + trackId + "'>" + session.track + "</label>" +
+                "<label for='day-" + trackId + "'>" + session.track + "</label>" +
                 "</a></li>";
             trackList.append(html)
         }
@@ -541,7 +587,7 @@ function sessions() {
         modal.find(".session-speakers").html(getSpeakers(session.speakers,true));
         modal.find(".session-info .session-track").text(session.track);
         modal.find(".session-info .session-difficulty").text(session.difficulty);
-        modal.find(".session-info .session-start").text("Day " + session.day + " at " + session.start);
+        modal.find(".session-info .session-start").text(session.start);
         modal.find(".session-info .session-room").text(session.room);
         modal.find(".session-info .session-duration").text(session.duration);
         modal.find(".session-description").html(description.replace(/\n/g, '<br />'));
@@ -758,7 +804,6 @@ function sessions() {
      */
     function log(session) {
         console.log(
-            "Day: " + session.day + " & " +
             "Start: " + session.start + " & " +
             "Room: " + session.room + " & " +
             "Type: " + session.type + " & " +

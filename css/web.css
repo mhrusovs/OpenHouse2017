@@ -18,16 +18,26 @@ th {
 
 table.responsive-table td.session-time {
     text-align: center;
+    vertical-align: top;
+    padding-bottom: 60px;
 }
 
 table.responsive-table td {
-    font-size: 12px;
+    font-size: 16px;
     height: 51px;
+}
+
+i.tiny{
+    vertical-align: bottom;
+}
+
+table.striped > tbody > tr > td{
+    position: relative !important;
 }
 
 @media (min-width: 993px) {
     table.responsive-table td {
-        height: 174px;
+        min-height: 174px;
     }
 }
 
@@ -141,6 +151,10 @@ table.responsive-table td {
     padding: 1px 5px 1px 5px;
     cursor: pointer;
     color: #ffffff;
+    height: calc(100% - 10px);
+    position: absolute;
+    width: calc(100% - 10px);
+    top: 5px;
 }
 
 @media (min-width: 993px) {
@@ -166,18 +180,21 @@ table.responsive-table td {
     .session-time {
         color: #727272;
         min-width: 110px;
-        padding: 24px;
+        padding: 0px;
     }
 
-    .session-hour {
+    .session-hour, .session-minute{
         font-size: 56px;
         font-weight: 300;
         letter-spacing: -0.04em;
     }
 
     .session-minute {
-        font-size: 16px;
         margin-left: 3px;
+    }
+   
+    .session-minute:before{
+	content: ":";
     }
 }
 
@@ -194,12 +211,18 @@ table.responsive-table td {
     margin-right: 2px;
 }
 
-.session-speakers, .session-track, .session-room, .session-start, .session-duration, .session-difficulty {
+.session-speakers, .session-track, .session-room, .session-start, .session-duration, .session-difficulty, .session-detail-bottom{
     margin-bottom: 5px;
     margin-right: 3px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
     line-height: normal;
+    vertical-align: bottom;
+}
+
+.session-detail-bottom{
+    bottom: 5px;
+    position: absolute;
 }
 
 .session-favorite-icon {
@@ -280,6 +303,7 @@ table.responsive-table td {
     color: #212121;
     font-size: 14px;
     font-weight: 400;
+    vertical-align: bottom;
 }
 
 .speaker-bio {
@@ -293,4 +317,3 @@ table.responsive-table td {
     color: #039be5;
     text-transform: none;
 }
-
