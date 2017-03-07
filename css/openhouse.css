@@ -129,6 +129,25 @@ ul.nav > li > a {
     font-size: 18px;
 }
 
+.footer-section .container {
+  display: block;
+  padding: 2ex;
+}
+
+.footer-section .container img {
+  width: 150px;
+}
+
+.venue-section, .schedule-section, .speakers-section {
+  padding-bottom: 215px;
+}
+
+@media screen and (min-width: 363px){
+    .venue-section, .schedule-section, .speakers-section {
+        padding-bottom: 190px;
+    }
+}
+
 @media screen and (min-width: 768px){
     .navbar > .container {width: 670px;}
 
@@ -136,6 +155,10 @@ ul.nav > li > a {
         float: left;
         margin-left: 0px;
         margin-right: 0px;  
+    }
+
+    .venue-section, .schedule-section, .speakers-section {
+	padding-bottom: 170px;
     }
 
     .navbar-collapse {
@@ -169,10 +192,24 @@ ul.nav > li > a {
         float: right !important;
         margin-right: -15px;
     }
+
+    .footer-section .container{
+        width: 49%;
+        display: inline-block;
+        padding: 2ex;
+        vertical-align: middle;
+    }
+
+    .footer-section .container img{
+        width: 250px;
+    }
 }
 
 @media screen and (min-width: 992px){
     .navbar > .container {width: 750px;}
+    .venue-section, .schedule-section, .speakers-section {
+        padding-bottom: 140px;
+    }
 }
 
 @media screen and (min-width: 1200px){
@@ -286,10 +323,6 @@ h3.first {
   background: #dcdcdc;
 }
 
-.venue-section {
-  padding-bottom: 0em;
-}
-
 .registration-section,
 .testimonials-section,
 .brno-section,
@@ -309,12 +342,14 @@ h3.first {
 
 .footer-section {
   background: #000;
-  padding: 25px;
   text-align: center;
 }
 
 footer {
   color: white;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 }
 
 .fa {
@@ -339,10 +374,6 @@ h2 .fa {
   display: none;
 }
 
-.schedule-section {
-    padding-bottom: 0;
-}
-
 .banner-image{
    max-width: 1600px;
    min-width: 500px;
@@ -362,6 +393,13 @@ h2 .fa {
 
 /* Mobile device tweaks */
 @media screen and (max-width: 752px) {
+  .banner-image{
+    min-width: 300px;
+    background: url("../imgs/logo.png") no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
   .intro-section {
     padding-top: 75px;
     font-size: inherit;

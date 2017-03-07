@@ -38,6 +38,7 @@ table.striped > tbody > tr > td{
 @media (min-width: 993px) {
     table.responsive-table td {
         min-height: 174px;
+	height: 220px;
     }
 }
 
@@ -151,16 +152,17 @@ table.striped > tbody > tr > td{
     padding: 1px 5px 1px 5px;
     cursor: pointer;
     color: #ffffff;
-    height: calc(100% - 10px);
-    position: absolute;
-    width: calc(100% - 10px);
-    top: 5px;
 }
 
 @media (min-width: 993px) {
     .session {
         padding: 10px;
+	height: calc(100% - 10px);
+	position: absolute;
+	width: calc(100% - 10px);
+	top: 5px;
     }
+
 }
 
 .session-time {
@@ -175,6 +177,7 @@ table.striped > tbody > tr > td{
 @media (min-width: 993px) {
     .session .session-title {
         min-height: 100px;
+	word-wrap: break-word;
     }
 
     .session-time {

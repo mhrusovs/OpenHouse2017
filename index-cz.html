@@ -20,9 +20,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Overpass font -->
-    <link href="http://overpass-30e2.kxcdn.com/overpass.css" rel="stylesheet">
-    <link href="http://overpass-30e2.kxcdn.com/overpass-mono.css" rel="stylesheet">
-
+    <link href="fonts/overpass.css" rel="stylesheet">
+    <link href="fonts/overpass-mono.css" rel="stylesheet">
+    
     <!-- Font Awesome 4.6.3 -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
@@ -91,9 +91,6 @@
             <li><a href="speakers-cz.html">Řečníci</a></li>
             <li><a href="#venue" onclick="scroll_to_section('#venue')">Místo konání</a></li>
           </ul>
-
-          <a class="top-branding hidden-md hidden-sm hidden-xs" href="#" onclick="scroll_to_section('#page-top')">
-            <img src="img/devconf-cz-webopt.svg" class="navbar-brand" alt="Zpět nahoru"></a>
 
           <ul class="nav navbar-nav navbar-right social">
             <li><a href="https://www.facebook.com/" class="fa fa-facebook-official" title="Facebook">
@@ -165,9 +162,12 @@
     <script src="js/leaflet.js"></script>
 
     <footer id="footer" class="footer-section">
-      <div class="container">
+       <div class="container">
+	<a href="https://www.redhat.com/en/global/czech-republic" title="Red Hat Czech, s.r.o."><img src="imgs/Logo_RH.png"></a>
+       </div>
+       <div class="container">
           <!-- Participation Agreements Section -->
-          <div class="col-xs-12 text-center" style="color: white">
+          <div class="col-xs-12 text-center">
           Máte nějaké další dotazy? Kontaktujte přímo <a href="mailto:mhrusovs@redhat.com">Mateje Hrušovského</a>.
 
           </div>
