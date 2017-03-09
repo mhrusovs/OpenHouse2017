@@ -337,7 +337,7 @@ function sessions() {
             log(session);
         } else {
             td.html(html);
-	    td.attr("rowspan", getNoHalfHours(session));
+	    td.attr("rowspan", getNoSlots(session));
 
             if (session.track) {
 
@@ -363,13 +363,12 @@ function sessions() {
      * @param session
      * @returns integer
      */
-    function getNoHalfHours(session) {
+    function getNoSlots(session) {
 	var duration = session.duration;
-	var result = parseInt(duration.split(":")[0]) * 2;
-	if(parseInt(duration.split(":")[1]) > 0){
-		result += 1;
-	}
+	var result = parseInt(duration.split(":")[0]) * 60;
+	result += parseInt(duration.split(":")[1]);
 
+	result = result/40;
 	checkTimeSlots(session, result);	
 	return result;
     }
@@ -385,25 +384,27 @@ function sessions() {
 			createTR(session);
 		}
 	    }
-	    session.start = addHalfHour(session.start);
+	    session.start = nextSlot(session.start);
         }
 
 	session.start = time;
     }
 
-    function addHalfHour(time) {
+    function nextSlot(time) {
 	var hour = parseInt(time.split(":")[0]),
 	    minutes = parseInt(time.split(":")[1]);
 
-        if(minutes > 0){
+        if((minutes+40) >= 60){
 		hour += 1;
-		if(hour < 10){
-			return "0" + hour + ":00";
-		} else {
-			return hour + ":00";
-		}
+		minutes = (minutes+40)-60;
 	}else{
-		return time.split(":")[0] + ":30";
+		minutes += 40;
+	}
+
+	if(hour < 10){
+		return "0" + hour + ":" + (minutes<10? "0" + minutes: minutes);
+	} else {
+		return hour + ":" + (minutes<10? "0" + minutes: minutes);
 	}
     }
 
