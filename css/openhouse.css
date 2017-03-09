@@ -139,18 +139,21 @@ ul.nav > li > a {
 }
 
 .venue-section, .schedule-section, .speakers-section {
-  padding-bottom: 215px;
+  padding-bottom: 0px;
 }
 
-@media screen and (min-width: 363px){
-    .venue-section, .schedule-section, .speakers-section {
-        padding-bottom: 190px;
-    }
+footer {
+  color: white;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px){
     .navbar > .container {width: 670px;}
 
+    footer{
+        position: fixed;
+	bottom: 0px;
+    }
     .navbar-header {
         float: left;
         margin-left: 0px;
@@ -332,6 +335,10 @@ h3.first {
   background: #dcdcdc;
 }
 
+.register{
+  font-weight: bold;
+}
+
 .venue-section h2 {
   margin-bottom: 0;
 }
@@ -343,13 +350,6 @@ h3.first {
 .footer-section {
   background: #000;
   text-align: center;
-}
-
-footer {
-  color: white;
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
 }
 
 .fa {
