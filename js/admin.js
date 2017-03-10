@@ -54,7 +54,7 @@ $(function () {
             new FieldOption(FieldType.TEXT, "title"),
             new FieldOption(FieldType.RADIO, "type", {values: [{value: "talk", description: "Talk"}, {value: "contest", description: "Contest"},{value: "team", description: "Team presentation"}]}),
             new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: ""}),
-            new FieldOption(FieldType.TEXT, "difficulty"),
+            new FieldOption(FieldType.RADIO, "difficulty",{values: [{value: "All audiences", description: "All audiences"},{value: "Beginner", description: "Beginner"},{value: "Advanced", description: "Advanced"}]}),
             new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: ""}),
             new FieldOption(FieldType.SELECT, "speakers", {values: {}, multiple: "multiple"}),
             new FieldOption(FieldType.TEXT, "start"), 
@@ -544,7 +544,7 @@ function configure(config) {
                         "<label>" + field.name + ":</label>";
 		
 		    field.options.values.forEach( function(option) {
-			html += "<p style='margin-left: 3em;'><input type='radio' class='with-gap' name='group-" + field.name + "-" + config.model + "' id='radio-" + option.value + "-" + config.model + "'>" + 
+			html += "<p style='margin-left: 2em; margin-top: 2em;'><input type='radio' class='with-gap' name='group-" + field.name + "-" + config.model + "' id='radio-" + option.value + "-" + config.model + "'>" + 
 			 	"<label for='radio-" + option.value + "-" + config.model + "'>" + option.description + "</label></p>";
 		    });
 		    
