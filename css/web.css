@@ -129,6 +129,7 @@ table.striped > tbody > tr > td{
 
 .dropdown-wrapper.active .dropdown {
     opacity: 1;
+    z-index: 9;
     pointer-events: auto;
 }
 
