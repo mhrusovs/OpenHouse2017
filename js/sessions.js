@@ -383,11 +383,19 @@ function sessions() {
 		}else{
 			createTR(session);
 		}
+	    } else {
+		if(result > 1 && i > 0){
+			removeTD(session);
+		}
 	    }
 	    session.start = nextSlot(session.start);
         }
 
 	session.start = time;
+    }
+
+    function removeTD(session){
+	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).remove();
     }
 
     function nextSlot(time) {
@@ -434,8 +442,12 @@ function sessions() {
         // Create a TD per room
         for (key in rooms) {
             if (roomType(rooms[key]) == sessionType(session)) {
-		if(!ignoreThisRoom){
-	                html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
+		if(ignoreThisRoom){
+			if(rooms[key].name != session.room){
+				html += "<td class='" + formatRoom(rooms[key].name) + "'></td>";
+			}
+		} else {
+	            html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
 		}
             }
         }
@@ -458,7 +470,7 @@ function sessions() {
             return "contests"; 
         }
 
-	if (room.type.toLowerCase() == "team presentation"){
+	if (room.type.toLowerCase() == "team"){
             return "teams"; 
         }
 
@@ -480,7 +492,7 @@ function sessions() {
             return "contests";
         }
 
-        if (session.type.toLowerCase() == "team presentation"){
+        if (session.type.toLowerCase() == "team"){
             return "teams";
         }
 
