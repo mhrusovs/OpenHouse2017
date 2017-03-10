@@ -91,6 +91,7 @@ function speakers() {
         var avatarRef = firebase.storage().ref().child("speakers/" + speaker.email  + ".jpg");
         avatarRef.getDownloadURL().then(function (url) {
             $("#" + speaker.id).find(".speaker-image").css('background-image', 'url(' + url + ')');
+            $("#" + speaker.id).find(".speaker-image").css('background-position', speaker.align);
         });
     }
 
@@ -128,7 +129,7 @@ function speakers() {
         modal.find(".speaker-name").text(speaker.name);
         modal.find(".speaker-country").text(speaker.country);
         modal.find(".speaker-organization").text(speaker.organization);
-        modal.find(".speaker-bio").text(speaker.bio.replace(/\n/g, '<br />'));
+        modal.find(".speaker-bio").html(speaker.bio.replace(/\n/g, '<br>'));
 
         var twitterHTML = "";
         if (speaker.twitter) {

@@ -32,7 +32,8 @@ $(function () {
         fieldId: "key",
         fields: [
             new FieldOption(FieldType.IMAGE, "avatar", {size: 50}),
-            new FieldOption(FieldType.TEXT, "name"),
+            new FieldOption(FieldType.RADIO, "align", {values: [{value: "top", description: "Align avatar to TOP"}, {value: "center", description: "Align avatar to CENTER"},{value: "bottom", description: "Align avatar to BOTTOM"}]}),
+	    new FieldOption(FieldType.TEXT, "name"),
             new FieldOption(FieldType.TEXT, "email"),
             new FieldOption(FieldType.TEXT, "country"),
             new FieldOption(FieldType.TEXT, "organization"),
@@ -614,6 +615,8 @@ function configure(config) {
     	        if (field.type == FieldType.SELECT){
 		    $('select').material_select();
 	        }
+	    } else {
+		$("#" + createIdName("form")).find("#" + createIdName(field.name)).val("");
 	    }
         });
 
