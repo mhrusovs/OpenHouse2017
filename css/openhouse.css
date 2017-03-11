@@ -203,9 +203,6 @@ footer {
         vertical-align: middle;
     }
 
-    .footer-section .container img{
-        width: 250px;
-    }
 }
 
 @media screen and (min-width: 992px){
