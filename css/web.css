@@ -203,7 +203,7 @@ table.striped > tbody > tr > td{
 }
 
 #session-detail, .session-speakers a {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .session-description {
