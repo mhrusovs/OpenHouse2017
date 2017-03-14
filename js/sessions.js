@@ -89,7 +89,16 @@ function sessions() {
         .on("click", "#vote-send", function (event) {
             event.preventDefault();
             saveFeedback();
-        });
+        })
+	.on("click", ".tab", function () {
+	   setWidth();
+	});
+	$(window).on("resize", function() {
+	    if($(this).width() < 993){
+		setWidth();
+	    }
+	});
+
 
     // -- Helper methods ----------------------------------------------------------------------------------------------
 
@@ -154,6 +163,7 @@ function sessions() {
             sessions[session.id] = session;
 
             addSessionInTable(session);
+	    setWidth();
         });
 
         sessionsRef.on("child_changed", function (snapshot) {
@@ -162,7 +172,7 @@ function sessions() {
 
             $(session.id).remove();
             addSessionInTable(session);
-
+	    setWidth();
             // If popup is opened, change the data there
             var modal = $("#session-detail");
             if (modal.find(".session-id").text() == session.id) {
@@ -262,7 +272,7 @@ function sessions() {
      * @returns {string}
      */
     function formatTrack(trackName) {
-        return trackName.toUpperCase().replace(/\s+/g, '-').replace(/,/g, '').replace(/\./g, '');
+        return trackName.toUpperCase().replace(/\s+/g, '-').replace(/,/g, '').replace(/\./g, '').replace(/\//g, '-');
     }
 
     /**
@@ -338,6 +348,15 @@ function sessions() {
         } else {
             td.html(html);
 	    td.attr("rowspan", getNoSlots(session));
+	    if(td.attr("rowspan") > 1){
+		html = "<div sid='" + session.id + "' class='session hoverable hidden absolute' rs='" + td.attr("rowspan") + "'>" +
+            "<div class='session-title'>" + session.title + "</div>" +
+            "</div>" +
+            "</div>";
+
+		td.html(td.html() + html);
+	    }
+
 
             if (session.track) {
 
@@ -395,7 +414,8 @@ function sessions() {
     }
 
     function removeTD(session){
-	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).remove();
+	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).addClass("hidden");
+	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).attr("hid",session.id);
     }
 
     function nextSlot(time) {
@@ -445,6 +465,8 @@ function sessions() {
 		if(ignoreThisRoom){
 			if(rooms[key].name != session.room){
 				html += "<td class='" + formatRoom(rooms[key].name) + "'></td>";
+			} else {
+				html += "<td class='" + formatRoom(rooms[key].name) + " hidden' hid='" + session.id + "'></td>";
 			}
 		} else {
 	            html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
@@ -453,6 +475,20 @@ function sessions() {
         }
         html += "</tr>";
         $("#" + sessionType(session)).find("table.day > tbody:last-child").append(html);
+    }
+
+    function setWidth(){
+	$(".absolute").each(function() {
+		var longerSessionHover = $("td[hid=" + $(this).attr("sid") + "]");
+		var tdWidth = $("#" + $(this).attr("sid")).innerWidth();
+		var correction = 10;
+		$("td[hid=" + $(this).attr("sid") + "]").each(function (){		
+			tdWidth += $(this).outerWidth(true) + 20;
+			correction += -1;
+		});
+		
+		$(this).width(tdWidth - correction) ; 
+	});
     }
 
     /**
