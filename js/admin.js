@@ -54,7 +54,7 @@ $(function () {
             new FieldOption(FieldType.TEXT, "title"),
             new FieldOption(FieldType.RADIO, "type", {values: [{value: "talk", description: "Talk"}, {value: "contest", description: "Contest"},{value: "team", description: "Team presentation"}]}),
             new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: ""}),
-            new FieldOption(FieldType.RADIO, "difficulty",{values: [{value: "All audiences", description: "All audiences"},{value: "Beginner", description: "Beginner"},{value: "Advanced", description: "Advanced"}]}),
+            new FieldOption(FieldType.RADIO, "difficulty",{values: [{value: "All", description: "All audiences"},{value: "Beginner", description: "Beginner"},{value: "Advanced", description: "Advanced"}]}),
             new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: ""}),
             new FieldOption(FieldType.SELECT, "speakers", {values: {}, multiple: "multiple"}),
             new FieldOption(FieldType.TEXT, "start"), 

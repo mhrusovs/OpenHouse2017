@@ -635,7 +635,7 @@ function sessions() {
         modal.find(".session-title").text(session.title);
         modal.find(".session-speakers").html(getSpeakers(session.speakers,true));
         modal.find(".session-info .session-track").text(session.track);
-        modal.find(".session-info .session-difficulty").text(session.difficulty);
+        modal.find(".session-info .session-difficulty").text((session.difficulty == "All"?"All audiences":session.difficulty));
         modal.find(".session-info .session-start").text(session.start);
         modal.find(".session-info .session-room").text(session.room);
         modal.find(".session-info .session-duration").text(session.duration);
