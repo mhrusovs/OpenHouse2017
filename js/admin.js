@@ -367,14 +367,13 @@ function configure(config) {
             "<table id='" + createIdName("table") + "' class='model-table bordered highlight responsive-table'>" +
             "<thead>" +
             "<tr>" +
-            "<th style='display: none'>ID</th>";
+            "<th class='controls'></th><th style='display: none'>ID</th>";
 
         config.fields.forEach(function (field) {
             html += "<th data-field='" + field.name + "'>" + field.name + "</th>";
         });
 
-        html += "<th class='controls'></th>" +
-            "</tr>" +
+        html += "</tr>" +
             "</thead>" +
             "<tbody>" +
             "</tbody>" +
@@ -393,7 +392,18 @@ function configure(config) {
      * @param data Data model instance
      */
     function addNewTableRow(key, data) {
-        var html = "<tr>";
+        var html = "<tr>" +
+	    "<td class='edit'>" +
+            "&nbsp;" +
+            "<a href='#' class='" + createIdName("item-edit") + "'>" +
+            "<i class='material-icons'>edit</i>" +
+            "</a> &nbsp; &nbsp;" +
+            "<a href='#' class='" + createIdName("item-remove") + "'>" +
+            "<i class='material-icons'>delete</i>" +
+            "</a>" +
+            "&nbsp;" +
+            "</td>";
+	
         html += "<td class='" + config.fieldId + "' style='display: none;'>" + key + "</td>";
 
         $.each(config.fields, function (index, field) {
@@ -426,17 +436,6 @@ function configure(config) {
             }
 
         });
-
-        html += "<td class='edit'>" +
-            "&nbsp;" +
-            "<a href='#' class='" + createIdName("item-edit") + "'>" +
-            "<i class='material-icons'>edit</i>" +
-            "</a> &nbsp; &nbsp;" +
-            "<a href='#' class='" + createIdName("item-remove") + "'>" +
-            "<i class='material-icons'>delete</i>" +
-            "</a>" +
-            "&nbsp;" +
-            "</td>";
 
         html += "</tr>";
 
