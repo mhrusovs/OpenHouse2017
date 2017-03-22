@@ -64,7 +64,7 @@ $(function () {
         data: {},
 	load: [
 		{ref: firebase.database().ref().child("tracks"), order: "name", store: "track", what: {value: "name", description: ["name"]}},
-		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: {value: "name", description: ["name", "type"]}},
+		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: {value: "id", description: ["name", "type"]}},
 		{ref: firebase.database().ref().child("speakers"), order: "name", store: "speakers", what: {value: "id", description: ["name"]}}
 	],
         databaseRef: firebase.database().ref().child("sessions"),

@@ -111,7 +111,7 @@ function sessions() {
         roomsRef.once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 var room = childSnapshot.val();
-                rooms[formatRoom(room.name)] = room;
+                rooms[room.id] = room;
             });
 
             createTableHeader();
@@ -253,16 +253,6 @@ function sessions() {
         sessionsTabs.tabs('select_tab', talks);
 
         $(".preloader-wrapper").addClass("hide");
-    }
-
-    /**
-     * Room name formatter
-     *
-     * @param roomName
-     * @returns {string}
-     */
-    function formatRoom(roomName) {
-        return roomName.toUpperCase();
     }
 
     /**
@@ -414,8 +404,8 @@ function sessions() {
     }
 
     function removeTD(session){
-	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).addClass("hidden");
-	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + formatRoom(session.room)).attr("hid",session.id);
+	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + session.room).addClass("hidden");
+	$("#" + sessionType(session)).find("table.day > tbody:last-child > tr." + formatTimeSlot(session) + " > td." + session.room).attr("hid",session.id);
     }
 
     function nextSlot(time) {
@@ -463,13 +453,13 @@ function sessions() {
         for (key in rooms) {
             if (roomType(rooms[key]) == sessionType(session)) {
 		if(ignoreThisRoom){
-			if(rooms[key].name != session.room){
-				html += "<td class='" + formatRoom(rooms[key].name) + "'></td>";
+			if(key != session.room){
+				html += "<td class='" + key + "'></td>";
 			} else {
-				html += "<td class='" + formatRoom(rooms[key].name) + " hidden' hid='" + session.id + "'></td>";
+				html += "<td class='" + key + " hidden' hid='" + session.id + "'></td>";
 			}
 		} else {
-	            html += "<td class='" + formatRoom(rooms[key].name) + "'></td>"
+	            html += "<td class='" + key + "'></td>";
 		}
             }
         }
@@ -541,7 +531,7 @@ function sessions() {
             .find(
                 "table.day" +
                 " tr." + formatTimeSlot(session) +
-                " td." + formatRoom(session.room)
+                " td." + session.room
             );
     }
 
@@ -637,7 +627,7 @@ function sessions() {
         modal.find(".session-info .session-track").text(session.track);
         modal.find(".session-info .session-difficulty").text((session.difficulty == "All"?"All audiences":session.difficulty));
         modal.find(".session-info .session-start").text(session.start);
-        modal.find(".session-info .session-room").text(session.room);
+        modal.find(".session-info .session-room").text(rooms[session.room].name);
         modal.find(".session-info .session-duration").text(session.duration);
         modal.find(".session-description").html(description.replace(/\n/g, '<br />'));
 
@@ -818,10 +808,10 @@ function sessions() {
 	                s += "<a href='/speakers#" + speakers[speakersId[i]].id + "' class='speaker-link'>" + speaker.name + "</a>";
 		}else{
 			s += speaker.name;
-			return s;
+		//	return s;
 		}
                 if (speakersId.length - 1 > i) {
-                    s += " & ";
+                    s += ", ";
                 }
             }
         }
@@ -854,7 +844,7 @@ function sessions() {
     function log(session) {
         console.log(
             "Start: " + session.start + " & " +
-            "Room: " + session.room + " & " +
+            "Room: " + rooms[session.room].name + " & " +
             "Type: " + session.type + " & " +
             "Track: " + session.track + " & " +
             "Title: " + session.title
