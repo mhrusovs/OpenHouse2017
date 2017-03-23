@@ -53,10 +53,10 @@ $(function () {
         fields: [
             new FieldOption(FieldType.TEXT, "title"),
             new FieldOption(FieldType.RADIO, "type", {values: [{value: "talk", description: "Talk"}, {value: "contest", description: "Contest"},{value: "team", description: "Team presentation"}]}),
-            new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: ""}),
+            new FieldOption(FieldType.SELECT, "track", {values: {}, multiple: "", replace: false}),
             new FieldOption(FieldType.RADIO, "difficulty",{values: [{value: "All", description: "All audiences"},{value: "Beginner", description: "Beginner"},{value: "Advanced", description: "Advanced"}]}),
-            new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: ""}),
-            new FieldOption(FieldType.SELECT, "speakers", {values: {}, multiple: "multiple"}),
+            new FieldOption(FieldType.SELECT, "room", {values: {}, multiple: "", replace: true}),
+            new FieldOption(FieldType.SELECT, "speakers", {values: {}, multiple: "multiple", replace: true}),
             new FieldOption(FieldType.TEXT, "start"), 
             new FieldOption(FieldType.TEXT, "duration"),
             new FieldOption(FieldType.TEXTAREA, "description", {rows: 10, truncate: 40})
@@ -243,7 +243,6 @@ function configure(config) {
         })
 	.on("click", ".modal-close", function (event) {
 	    event.preventDefault();
-	    console.log("modal close clicked");
 	    $.each(config.fields, function (index, field) {
             switch (field.type) {
                 case FieldType.RADIO:
@@ -415,6 +414,7 @@ function configure(config) {
                         "<img src='" + imageSrc + "' class='circle' width='" + field.options.size + "px' height='" + field.options.size + "px' />" +
                         "</td>";
                     break;
+
 		case FieldType.COLOR:
 		    var val = "#000000";
 		    if (data[field.name]) {
@@ -422,7 +422,30 @@ function configure(config) {
 		    }
                     html += "<td class='" + field.name + " mdl-data-table__cell--non-numeric' style='color: white; background-color: " + val + "'>" + val + "</td>";
                     break;
-                default:
+       		
+	       case FieldType.SELECT:
+			var value = data[field.name];
+			if(field.options.replace == true) {
+				if(field.options.multiple != "") {
+					var v = "";
+					$.each(value, function (id, item){
+						if(v != "") {
+							v += ", " + field.options.values[item]['description'];
+						} else {
+							v = field.options.values[item]['description'];
+						}
+					});
+					value = v;
+						
+				} else {
+					value = field.options.values[value]['description'];
+				}				
+			}
+
+			html += "<td class='" + field.name + " mdl-data-table__cell--non-numeric'>" + value + "</td>";
+			break;
+			
+	       default:
                     var value = "";
                     if (data[field.name]) {
                         if (field.options && field.options.truncate && data[field.name].length > field.options.truncate) {
@@ -463,10 +486,34 @@ function configure(config) {
                         tableRow.find('td.' + field.name + " img").attr("src", imageSrc);
                     }
                     break;
+
 		case FieldType.COLOR:
 			tableRow.find('td.' + field.name).css({"background": data[field.name], "color": "white"});
-			tableRow.find('td.' + field.name).text(value);
+			tableRow.find('td.' + field.name).text(data[field.name]);
 		    break;
+
+		case FieldType.SELECT:
+                        var value = data[field.name];
+                        if(field.options.replace == true) {
+                                if(field.options.multiple != "") {
+                                        var v = "";
+                                        $.each(value, function (id, item){
+                                                if(v != "") {
+                                                        v += ", " + field.options.values[item]['description'];
+                                                } else {
+                                                        v = field.options.values[item]['description'];
+                                                }
+                                        });
+                                        value = v;
+
+                                } else {
+                                        value = field.options.values[value]['description'];
+                                }
+                        }
+
+			tableRow.find('td.' + field.name).text(value);
+                    break;
+
                 default:
                     var value = (field.options && field.options.truncate) ?
                     data[field.name].substring(0, field.options.truncate) + "..." : data[field.name];
