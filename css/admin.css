@@ -76,3 +76,6 @@ td.edit {
     top: 20px;
 }
 
+.missing {
+    background: red;
+}

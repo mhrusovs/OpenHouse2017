@@ -424,7 +424,9 @@ function configure(config) {
                     break;
        		
 	       case FieldType.SELECT:
-			var value = data[field.name];
+			var value = data[field.name],
+			selectClass = field.name;
+
 			if(field.options.replace == true && value != "" && value != undefined) {
 				if(field.options.multiple != "") {
 					var v = "";
@@ -442,24 +444,32 @@ function configure(config) {
 				}				
 			}
 
-			if( value == undefined ){
-				value = "";
-			}
+			if( value == undefined ) {
+                                value = "";
+				selectClass += " missing";
+                        }
 
-			html += "<td class='" + field.name + " mdl-data-table__cell--non-numeric'>" + value + "</td>";
+			html += "<td class='" + selectClass + " mdl-data-table__cell--non-numeric'>" + value + "</td>";
 			break;
 			
 	       default:
-                    var value = "";
-                    if (data[field.name]) {
-                        if (field.options && field.options.truncate && data[field.name].length > field.options.truncate) {
-                            value = data[field.name].substring(0, field.options.truncate) + "...";
-                        } else {
-                            value = data[field.name];
+			var value = "",
+			defClass = field.name;
+			if (data[field.name]) {
+				if (field.options && field.options.truncate && data[field.name].length > field.options.truncate) {
+					value = data[field.name].substring(0, field.options.truncate) + "...";
+				} else {
+					value = data[field.name];
+                        	}
+			}
+			
+			if( value == undefined || value == "" ) {
+                                value = "";
+				defClass += " missing" 
                         }
-                    }
-                    html += "<td class='" + field.name + " mdl-data-table__cell--non-numeric'>" + value + "</td>";
-                    break;
+
+			html += "<td class='" + defClass + " mdl-data-table__cell--non-numeric'>" + value + "</td>";
+			break;
             }
 
         });
@@ -515,16 +525,31 @@ function configure(config) {
                                 }
                         }
 
-			if( value == undefined ) {
+			if( value == undefined || value == "" ) {
+				tableRow.find('td.' + field.name).addClass("missing");
 				value = "";
+			} else {
+				if( tableRow.find('td.' + field.name).hasClass("missing") == true ) {
+					tableRow.find('td.' + field.name).removeClass("missing");
+				}
 			}
 
 			tableRow.find('td.' + field.name).text(value);
                     break;
 
                 default:
-                    var value = (field.options && field.options.truncate) ?
-                    data[field.name].substring(0, field.options.truncate) + "..." : data[field.name];
+			var value = (field.options && field.options.truncate) ?
+			data[field.name].substring(0, field.options.truncate) + "..." : data[field.name];
+
+			if( value == undefined || value == "" ) {
+                                tableRow.find('td.' + field.name).addClass("missing");
+                                value = "";
+                        } else {
+                                if( tableRow.find('td.' + field.name).hasClass("missing") == true ) {
+                                        tableRow.find('td.' + field.name).removeClass("missing");
+                                }
+                        }
+
 
                     tableRow.find('td.' + field.name).text(value);
                     break;
