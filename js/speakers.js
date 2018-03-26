@@ -127,18 +127,7 @@ function speakers() {
 
         modal.find(".speaker-id").text(speaker.id);
         modal.find(".speaker-name").text(speaker.name);
-        modal.find(".speaker-country").text(speaker.country);
-        modal.find(".speaker-organization").text(speaker.organization);
         modal.find(".speaker-bio").html(speaker.bio.replace(/\n/g, '<br>'));
-
-        var twitterHTML = "";
-        if (speaker.twitter) {
-            twitterHTML = "<a href='http://twitter.com/" + speaker.twitter + "' target='_blank' class='twitter'>" +
-                "@" + speaker.twitter + "" +
-                "</a>";
-
-        }
-        modal.find(".speaker-twitter").html(twitterHTML);
     }
 
 }
