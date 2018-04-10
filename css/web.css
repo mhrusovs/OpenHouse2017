@@ -306,7 +306,7 @@ table.striped > tbody > tr > td{
 
 @media (min-width: 1069px) {
     .card.speaker {
-        width: calc(100% / 3 - 2 * 8px);
+        width: calc(100% / 5 - 2 * 8px);
     }
 }
 
