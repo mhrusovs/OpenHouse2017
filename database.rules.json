@@ -25,6 +25,24 @@
     "tracks": {
       ".read": true,
       ".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+    },
+    "in" :{
+      "rooms": {
+      	".read": true,
+      	".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+      },
+      "sessions": {
+      	".read": true,
+      	".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+      },
+      "speakers": {
+      	".read": true,
+      	".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+      },
+      "tracks": {
+      	".read": true,
+      	".write": "auth != null && root.child('admins').hasChild(auth.uid)"
+      }
     }
   }
 }
