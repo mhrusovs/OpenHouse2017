@@ -9,7 +9,7 @@ function speakers() {
 
     // -- Firebase Database Triggers ----------------------------------------------------------------------------------
 
-    var speakersRef = firebase.database().ref().child("in/speakers").orderByChild("name");
+    var speakersRef = firebase.database().ref().child("speakers").orderByChild("name");
 
     speakersRef.once('value', function (snapshot) {
         speakersRef.on("child_added", function (snapshot) {
@@ -88,7 +88,7 @@ function speakers() {
         $('.speakers-container').append(html);
 
         // Load image from Firebase Storage
-        var avatarRef = firebase.storage().ref().child("in/speakers/" + speaker.email  + ".jpg");
+        var avatarRef = firebase.storage().ref().child("speakers/" + speaker.email  + ".jpg");
         avatarRef.getDownloadURL().then(function (url) {
             $("#" + speaker.id).find(".speaker-image").css('background-image', 'url(' + url + ')');
             $("#" + speaker.id).find(".speaker-image").css('background-position', speaker.align);
@@ -116,7 +116,7 @@ function speakers() {
         modal.find(".speaker-image").attr("src", "/imgs/person-placeholder.jpg");
 
         // Load image from Firebase Storage
-        var avatarRef = firebase.storage().ref().child("in/speakers/" + speaker.email + ".jpg");
+        var avatarRef = firebase.storage().ref().child("speakers/" + speaker.email + ".jpg");
         avatarRef.getDownloadURL().then(function (url) {
             modal.find(".speaker-image").attr("src", url);
         });

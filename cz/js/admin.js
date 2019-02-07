@@ -10,7 +10,7 @@ $(function () {
         ],
         data: {},
 	load: [],
-        databaseRef: firebase.database().ref().child("in/tracks"),
+        databaseRef: firebase.database().ref().child("tracks"),
         databaseOrder: "name"
     });
 
@@ -23,7 +23,7 @@ $(function () {
         ],
         data: {},
 	load: [],
-        databaseRef: firebase.database().ref().child("in/rooms"),
+        databaseRef: firebase.database().ref().child("rooms"),
         databaseOrder: "name"
     });
 
@@ -39,9 +39,9 @@ $(function () {
         ],
         data: {},
 	load: [],
-        databaseRef: firebase.database().ref().child("in/speakers"),
+        databaseRef: firebase.database().ref().child("speakers"),
         databaseOrder: "name",
-        storageRef: firebase.storage().ref("in/speakers")
+        storageRef: firebase.storage().ref("speakers")
     });
 
     var session = configure({
@@ -60,13 +60,13 @@ $(function () {
         ],
         data: {},
 	load: [
-		{ref: firebase.database().ref().child("in/tracks"), order: "name", store: "track", what: {value: "name", description: ["name"]}},
-		{ref: firebase.database().ref().child("in/rooms"), order: "name", store: "room", what: {value: "id", description: ["name", "type"]}},
-		{ref: firebase.database().ref().child("in/speakers"), order: "name", store: "speakers", what: {value: "id", description: ["name"]}}
+		{ref: firebase.database().ref().child("tracks"), order: "name", store: "track", what: {value: "name", description: ["name"]}},
+		{ref: firebase.database().ref().child("rooms"), order: "name", store: "room", what: {value: "id", description: ["name", "type"]}},
+		{ref: firebase.database().ref().child("speakers"), order: "name", store: "speakers", what: {value: "id", description: ["name"]}}
 	],
-        databaseRef: firebase.database().ref().child("in/sessions"),
+        databaseRef: firebase.database().ref().child("sessions"),
         databaseOrder: "start",
-        storageRef: firebase.storage().ref("in/sessions")
+        storageRef: firebase.storage().ref("sessions")
     });
 
     // Force select the first tab

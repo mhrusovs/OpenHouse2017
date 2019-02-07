@@ -106,7 +106,7 @@ function sessions() {
      * Retrieve all rooms from database
      */
     function retrieveRooms() {
-        var roomsRef = firebase.database().ref().child("in/rooms").orderByChild("name");
+        var roomsRef = firebase.database().ref().child("rooms").orderByChild("name");
 
         roomsRef.once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
@@ -124,7 +124,7 @@ function sessions() {
      * Retrieve all tracks from database
      */
     function retrieveTracks() {
-        var tracksRef = firebase.database().ref().child("in/tracks");
+        var tracksRef = firebase.database().ref().child("tracks");
 
         tracksRef.once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
@@ -140,7 +140,7 @@ function sessions() {
      * Retrieve all speakers from databse
      */
     function retrieveSpeakers() {
-        var speakersRef = firebase.database().ref().child("in/speakers").orderByChild("name");
+        var speakersRef = firebase.database().ref().child("speakers").orderByChild("name");
 
         speakersRef.once('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
@@ -156,7 +156,7 @@ function sessions() {
      * Retrieve all sesions from database
      */
     function retrieveSessions() {
-        var sessionsRef = firebase.database().ref().child("in/sessions").orderByChild("start");
+        var sessionsRef = firebase.database().ref().child("sessions").orderByChild("start");
 
         sessionsRef.on("child_added", function (snapshot) {
             var session = snapshot.val();
@@ -203,7 +203,7 @@ function sessions() {
      * Retrieve a list of sessions id what the user have vote
      */
     function retrieveVotes() {
-        var favoritesRef = firebase.database().ref().child("in/votes").child(user.uid);
+        var favoritesRef = firebase.database().ref().child("votes").child(user.uid);
 
         favoritesRef.on("child_added", function (snapshot) {
             votes[snapshot.key] = snapshot.val();
@@ -225,7 +225,7 @@ function sessions() {
      * Retrieve a list of sessions id what the user have favorites
      */
     function retrieveFavorites() {
-        var favoritesRef = firebase.database().ref().child("in/favorites").child(user.uid);
+        var favoritesRef = firebase.database().ref().child("favorites").child(user.uid);
 
         favoritesRef.on("child_added", function (snapshot) {
             var sessionId = snapshot.val();
@@ -656,7 +656,7 @@ function sessions() {
         modal.find(".speaker-image").attr("src", "/imgs/person-placeholder.jpg");
 
         // Load image from Firebase Storage
-        var avatarRef = firebase.storage().ref().child("in/speakers/" + speaker.email + ".jpg");
+        var avatarRef = firebase.storage().ref().child("speakers/" + speaker.email + ".jpg");
         avatarRef.getDownloadURL().then(function (url) {
             modal.find(".speaker-image").attr("src", url);
         });
@@ -725,7 +725,7 @@ function sessions() {
         data["rating"] = rating;
         data["feedback"] = comment;
 
-        var voteRef = firebase.database().ref().child("in/votes").child(user.uid).child(sessionId);
+        var voteRef = firebase.database().ref().child("votes").child(user.uid).child(sessionId);
         voteRef.set(data, function (error) {
             if (error) {
                 alert("An error occurred while processing your request");
@@ -760,7 +760,7 @@ function sessions() {
      * @param sessionId The ID of the session
      */
     function favorite(sessionId) {
-        var favoritesRef = firebase.database().ref().child("in/favorites").child(user.uid).child(sessionId);
+        var favoritesRef = firebase.database().ref().child("favorites").child(user.uid).child(sessionId);
         if (favorites.indexOf(sessionId) == -1) {
             favoritesRef.set(sessionId);
         } else {
