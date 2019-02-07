@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta property="og:title" content="Open House 2018">
+    <meta property="og:title" content="Open House 2019">
     <meta property="og:site_name" content="openhouse.redhat.com">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://openhouse.redhat.com">
     <meta property="og:image" content="https://openhouse.redhat.com/imgs/openhouse_logo.png">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="imgs/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/cz/imgs/favicon.png" type="image/png">
 
     <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -29,26 +29,26 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link type="text/css" rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link type="text/css" rel="stylesheet" href="css/fontawesome-stars.css">
-    <link type="text/css" rel="stylesheet" href="css/global.css">
-    <link type="text/css" rel="stylesheet" href="css/web.css">
+    <link type="text/css" rel="stylesheet" href="/css/fontawesome-stars.css">
+    <link type="text/css" rel="stylesheet" href="/css/global.css">
+    <link type="text/css" rel="stylesheet" href="/css/web.css">
 
     <!-- Overpass font -->
-    <link href="fonts/overpass.css" rel="stylesheet">
-    <link href="fonts/overpass-mono.css" rel="stylesheet">
+    <link href="/fonts/overpass.css" rel="stylesheet">
+    <link href="/fonts/overpass-mono.css" rel="stylesheet">
 
     <!-- Font Awesome 4.6.3 -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <!-- FamFamFam flag icons -->
-    <link rel="stylesheet" href="css/famfamfam-flags.css">
+    <link rel="stylesheet" href="/css/famfamfam-flags.css">
 
     <!-- Scrolling Nav JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/scrolling-nav.js"></script>
 
     <!-- Custom CSS -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="/css/scrolling-nav.css" rel="stylesheet">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css">
@@ -68,11 +68,11 @@
     <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
 
     <!-- OpenHouse style -->
-    <link href="css/openhouse.css" rel="stylesheet">
+    <link href="/css/openhouse.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Open House 2018 - Sessions</title>
+    <title>Open House 2019 - Program</title>
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-top" data-offset="250">
@@ -84,10 +84,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="hidden-lg"><a href="index.html#page-top">Home</a></li>
-            <li><a href="schedule.html">Schedule</a></li>
-            <li><a href="speakers.html">Speakers</a></li>
-            <li><a href="index.html#venue">Venue</a></li>
+            <li class="hidden-lg"><a href="/cz/index-cz.html#page-top">Domů</a></li>
+            <li><a href="/cz/schedule-cz.html">Program</a></li>
+            <li><a href="/cz/speakers-cz.html">Řečníci</a></li>
+            <li><a href="/cz/index-cz.html#venue">Místo konání</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right social">
@@ -99,8 +99,8 @@
                 <span class="hide">Google+</span>
             </a></li>-->
 
-           <li><a href="schedule-cz.html" title="Česká verze">
-                <i class="famfamfam-flag-cz"></i>
+           <li><a href="/cz/schedule.html" title="English version">
+                <i class="famfamfam-flag-us"></i>
             </a></li>
           </ul>
         </div>
@@ -111,7 +111,7 @@
       <!-- /.container -->
     </nav>
 <section id="schedule" class="schedule-section">
-  <div class="loading-container">
+<div class="loading-container">
     <div class="preloader-wrapper big active">
         <div class="spinner-layer spinner-blue-only">
             <div class="circle-clipper left">
@@ -137,7 +137,7 @@
             <div id="day-talks" class="col s12">
                 <div class="filter-wrapper left hide hide-on-med-and-down">Filtered by: <span class="filters"></span>
                 </div>
-                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filtr
                     <ul class="dropdown">
                     </ul>
                 </div>
@@ -153,7 +153,7 @@
             <div id="day-contests" class="col s12">
                 <div class="filter-wrapper left hide hide-on-med-and-down">
                     Filtered by: <span class="filters"></span></div>
-                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filtr
                     <ul class="dropdown">
                     </ul>
                 </div>
@@ -170,7 +170,7 @@
             <div id="day-teams" class="col s12">
                 <div class="filter-wrapper left hide hide-on-med-and-down">
                     Filtered by: <span class="filters"></span></div>
-                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filter
+                <div class="day-track-filter dropdown-wrapper hide-on-med-and-down right">Filtr
                     <ul class="dropdown">
                     </ul>
                 </div>
@@ -247,12 +247,12 @@
 </section>
     <footer id="footer" class="footer-section">
        <div class="container">
-	<a href="https://www.redhat.com/en/global/czech-republic" title="Red Hat Czech, s.r.o."><img src="imgs/Logo_RH.png"></a>
+	<a href="https://www.redhat.com/en/global/czech-republic" title="Red Hat Czech, s.r.o."><img src="/cz/imgs/Logo_RH.png"></a>
        </div>
        <div class="container">
           <!-- Participation Agreements Section -->
           <div class="col-xs-12 text-center">
-          Do you have any question? Please, contact <a href="mailto:mhrusovs@redhat.com">Matej Hrušovský</a> directly.
+          Máte nějaké další dotazy? Kontaktujte přímo <a href="mailto:mhrusovs@redhat.com">Mateje Hrušovského</a>.
 
           </div>
           <!-- END Participation Agreements Section -->
