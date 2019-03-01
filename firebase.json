@@ -11,6 +11,23 @@
 			".idea",
 			".git"
 		],
-		"cleanUrls": true
+		"cleanUrls": true,
+		"redirects": [
+			{
+				"source" : "/",
+				"destination" : "https://openhouse.redhat.com/cz/",
+				"type" : 301
+			},
+			{
+				"source" : "/index",
+				"destination" : "https://openhouse.redhat.com/cz/",
+				"type" : 301
+			},
+			{
+				"source" : "/index.html",
+				"destination" : "https://openhouse.redhat.com/cz/",
+				"type" : 301
+			}
+		]
 	}
 }
