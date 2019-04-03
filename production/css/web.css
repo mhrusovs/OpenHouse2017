@@ -288,6 +288,13 @@ table.striped > tbody > tr > td{
     display: inline-block;
 }
 
+.card-content {
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 0px 20px;
+}
+
 .card.speaker {
     margin: 8px;
     vertical-align: top;
@@ -297,7 +304,19 @@ table.striped > tbody > tr > td{
     cursor: pointer;
 }
 
+.card-title.speaker-name {
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+    padding: 5px;
+    margin-left: 0px;
+    line-height: 1.2;
+}
+
 @media (min-width: 718px) {
+    .card-title.speaker-name {
+	margin-left: 10px;
+    }
     .card.speaker {
         margin: 8px;
         width: calc(100% / 2 - 2 * 8px);
@@ -310,20 +329,18 @@ table.striped > tbody > tr > td{
     }
 }
 
+@media (min-width: 1300px) {
+    .card-content {
+	max-width: 60%;
+	padding: 20px !important;
+    }
+}
+
 .card-image.speaker-image {
     color: #fff;
     height: 250px;
     background-size: cover;
     background-position: center;
-}
-
-.card-title.speaker-name {
-    font-size: 36px;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px black;
-    padding: 5px;
-    margin-left: 10px;
-    line-height: 1.2;
 }
 
 .speaker-country, .speaker-organization, .speaker-bio {
