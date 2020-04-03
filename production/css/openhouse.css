@@ -391,7 +391,7 @@ h2 .fa {
 @media screen and (max-width: 752px) {
   .banner-image{
     min-width: 300px;
-    background: url("../imgs/logo.png") no-repeat;
+    background: url("../imgs/logo-virtual.png") no-repeat;
     background-position: center;
     background-size: contain;
   }
