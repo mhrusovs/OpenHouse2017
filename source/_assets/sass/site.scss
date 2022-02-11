@@ -1,0 +1,273 @@
+@font-face {
+  font-family: RedHatDisplay;
+  src: url("../fonts/RedHatDisplay-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: RedHatDisplay;
+  src: url("../fonts/RedHatDisplay-Bold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: RedHatDisplay;
+  src: url("../fonts/RedHatDisplay-Black.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: RedHatDisplay;
+  src: url("../fonts/RedHatDisplay-Regular.ttf");
+  font-weight: 400;
+}
+
+body, html {
+  min-height: 100%;
+  width: 100%;
+  font-family: RedHatDisplay, Arial, sans-serif !important;
+} 
+
+.masthead {
+  background: #FFFFFF;
+  color: #131313;
+  flex-grow: 1;
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.masthead > .nav-link {
+  color: #fff;
+}
+
+
+.navbar.background-black .nav-brand a {
+  display: inline;
+}
+
+.navbar .nav-brand a img{
+  height: 2rem; 
+}
+
+.nav-item {
+  font-family: RedHatDisplay, Arial, sans-serif;
+  font-size: 16px;
+}
+  
+.nav-item a:hover{
+  text-decoration: none;
+}
+
+.nav-item a:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  top: -.5rem;
+  left: 0;
+  background-color: #EE0000;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: 0s ease-out all 0s;
+  transition: 0s ease-out all 0s;
+}
+
+.nav-item a:hover:after{
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.navbar {
+  background: #151515;
+}
+
+.background-black, .show, .collapsing {
+  background: #151515;
+  transition: all 0.3s ease-out 0s;
+}
+
+.social-icon {
+  display: inline-block;
+  margin: 10px 20px;
+  filter: opacity(50%);
+  -webkit-transition: 0.2s ease-out all .1s;
+  transition: 0.2s ease-out all .1s;
+}
+
+.social-icon:hover {
+  filter: opacity(100%);
+  -webkit-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.text-logo, .heading-text{
+  width: 80vw;
+  display: block;
+  margin: 0px auto;
+}
+
+.text-logo{
+  width: 50vw;
+ }
+
+.heading-text-h1{
+  font-size: 3rem !important;
+  text-align: center;
+}
+
+.text-red{
+  color: #EE0000;
+}
+    
+@media (min-width: 992px) { 
+
+	.text-logo {
+	  width: 17vw;
+	  display: inline;
+	}
+
+	.heading-text {
+	  width: auto;
+	  display: block;
+	}
+
+	.social-icon {
+	  display: block;
+	  margin: 20px auto;
+	}
+
+	.show {
+	  background: transparent;
+    }
+    
+    .masthead {
+      background: #FFFFFF;
+      background-image: url("/assets/images/oh-background.gif");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-x: right;
+      color: #131313;
+      flex-grow: 1;
+      overflow: hidden;
+      min-height: 500px;
+    }
+    
+    .heading-text-h1{
+        font-size: 3rem !important;
+        text-align: left;
+    }
+    
+    .heading-text-h1:nth-child(1){
+        padding-top: 30vh !important;
+    }
+}
+
+.rhd-700, .rhd-600, .rhd-500, .rhd-400, footer {
+  font-family: RedHatDisplay, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.rhd-600 {
+  font-weight: 600;
+}
+
+.rhd-500 {
+  font-weight: 500;
+}
+
+.rhd-400, footer {
+  font-weight: 400;
+}
+
+h1.underline, a.underline, .nav-item a{
+  position: relative;
+  display: inline-block;
+} 
+
+p {
+  color: #6d7278;
+}
+
+footer, footer .h5{
+  color: #fff;
+  background: #252525;
+}
+
+p {
+  line-height: 22px;
+  font-size: 16px;
+}
+
+h1, section .h1, section .h2 {
+  color: #141b41;
+}
+
+h1.underline:after, section .h1.underline:after {
+  background: #141b41;
+  content: "";
+  position: absolute;
+  width: 66px;
+  height: 3px;
+  left: 0;
+  bottom: 0.5rem;
+}
+
+
+.background-gray {
+  background: #DEDEDE;
+}
+
+a.border {
+  color: #fff !important;
+  border-color: #fb6b6b !important;
+  background: #fb6b6b;
+  display: inline-block;
+  text-align: center;
+  border-radius: 45px;
+}
+
+a.border, .purple-href {
+  -webkit-transition: 0.1s ease-out all 0.1s;
+  transition: 0.1s ease-out all 0.1s;
+  text-decoration: none;
+}
+
+a.border:hover{
+  background: #BE0000;
+  border-color: #BE0000 !important;
+  -webkit-transition: 0.1s ease all;
+  transition: 0.1s ease all;
+}
+
+.copyright-wrapper{
+  background: #1a1a1a;
+}
+
+.copyright {
+  color: #ccc;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.support-logo, footer .links a {
+  width: 45%;
+}
+
+footer .links a {
+  color: #ccc;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+footer .links a:hover {
+  color: #fff;
+  font-weight: 400;
+}
+
+@media (min-width: 768px) {
+	.support-logo {
+		width: 25%;
+	}
+}

@@ -1,0 +1,81 @@
+#firebaseui-auth-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#container.progress {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+}
+
+.user-photo {
+    margin: 10px;
+    vertical-align: middle;
+    width: 45px;
+    height: 45px;
+}
+
+.brand-logo img {
+    width: 250px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+fieldset {
+    padding: 0;
+    border: 0;
+}
+
+img.form-image {
+    margin-right: 10px;
+}
+
+.form-file, img.form-image {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.form-image-remove {
+    display: block;
+    margin-bottom: 10px;
+}
+
+th.controls {
+    width: 100px;
+}
+
+td img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td.edit {
+    text-align: center;
+}
+
+.truncate {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-floating {
+    bottom: 20px;
+    position: fixed;
+    right: 24px;
+    z-index: 999;
+}
+
+.tabs {
+    position: absolute;
+    top: 20px;
+}
+
+.missing {
+    background: red;
+}
