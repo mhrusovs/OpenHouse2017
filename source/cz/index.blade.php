@@ -59,7 +59,7 @@
 			<div class="heading-text-h1 mont-400 px-5 px-lg-0 text-red">
 				April 13, 2022
 			</div>
-            <a class="heading-text-h1 mont-400 px-5 text-red local-nav mt-5 d-inline d-lg-inline-block border">Virtual event</a><br>
+            <a class="heading-text-h1 mont-400 px-5 text-red local-nav mt-5 d-inline d-lg-inline-block border" href="https://hopin.com/events/red-hat-czech-open-house-2022" target="_blank">Virtual event</a><br>
 		</div>
 	</div>
 </header>
